@@ -829,6 +829,10 @@ video {
   overflow: hidden;
 }
 
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
 .whitespace-pre-wrap {
   white-space: pre-wrap;
 }
@@ -855,6 +859,10 @@ video {
 
 .border-2 {
   border-width: 2px;
+}
+
+.border-r {
+  border-right-width: 1px;
 }
 
 .border-myblack {
@@ -1191,6 +1199,29 @@ body.no-scroll {
 
 .articlesUl:hover li:hover{
   filter: none;
+}
+
+/* Typewriter Animation */
+
+.authorHead{
+  animation: typing 3s steps(17) forwards,
+  blinking 1s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blinking {
+  50% {
+    border-color: transparent;
+  }
 }
 
 /* Hide the clear (x) button in the search input */

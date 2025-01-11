@@ -88,6 +88,28 @@ body.no-scroll {
   filter: none;
 }
 
+/* Typewriter Animation */
+.authorHead{
+  animation: typing 3s steps(17) forwards,
+  blinking 1s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+  
+}
+
+@keyframes blinking {
+  50% {
+    border-color: transparent;
+  }
+}
+
 /* Hide the clear (x) button in the search input */
 input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
