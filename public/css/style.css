@@ -80,13 +80,13 @@ body.no-scroll {
   @apply border-b text-mylightgray
 }
 
-.articlesUl:hover li{
+/* .articlesUl:hover li{
   filter: blur(3px);
 }
 
 .articlesUl:hover li:hover{
   filter: none;
-}
+} */
 
 /* Typewriter Animation */
 .authorHead{

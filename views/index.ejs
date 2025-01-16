@@ -19,14 +19,15 @@
   <ul class="articlesUl text-fontSizeUl flex flex-col">
 
     <% posts.forEach(post => { %>
-      <li class="text-[24px] cursor-pointer  duration-100  hover:filter-none">
+      <li class="text-[24px] cursor-pointer duration-500 hover:px-4 hover:bg-myblack group">
   
-        <a class="flex flex-col justify-between my-[18px] md:flex-row md:items-center" href="/post/<%= post._id %>">
-          <span><%= post.title %></span>
-          <span class="articleListDate text-fontSizeBase text-mygray w-[260px] inline-block md:text-right"><%= post.createdAt.toDateString() %></span>
+        <a class="flex flex-col justify-between my-[18px] md:flex-row md:items-center hover:text-mylightgray" href="/post/<%= post._id %>">
+          <span class="group-hover:text-mylightgray duration-500"><%= post.title %></span>
+          <span class="articleListDate text-fontSizeBase group-hover:text-mylightgray duration-500 text-mygray w-[260px] inline-block md:text-right"><%= post.createdAt.toDateString() %></span>
         </a>
   
       </li>
+
     <% }) %>
 
   </ul>
