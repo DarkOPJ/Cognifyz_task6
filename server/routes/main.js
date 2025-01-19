@@ -77,14 +77,15 @@ pageRouter.post("/search", authenticatedUserInfo, async (req, res) => {
     const data = await Post.find({
       $or: [
         { title: { $regex: new RegExp(searchNoSpecialCharacters, "i") } },
-        { body: { $regex: new RegExp(searchNoSpecialCharacters, "i") } },
+        // { body: { $regex: new RegExp(searchNoSpecialCharacters, "i") } },
       ],
     });
 
     res.render("search", {
       locals,
       posts: data,
-      searchTerm
+      searchTerm,
+      currentRoute: '/search'
     });
   } catch (error) {
     console.error(error);
@@ -92,7 +93,7 @@ pageRouter.post("/search", authenticatedUserInfo, async (req, res) => {
   }
 });
 
-// GET ABOUT page
+// GET CONTACT page
 pageRouter.get("/contact", authenticatedUserInfo, (req, res) => {
   const locals = {
     title: "Contact Me",
