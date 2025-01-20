@@ -27,6 +27,55 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
+// GET register page
+router.get("/register", async (req, res) => {
+  try {
+    const locals = {
+      title: "Register",
+      description: "Simple blog page with NodeJs and MongoDB.",
+    };
+    res.render("admin/register", { layout: layout, locals, showLogout: false });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+});
+
+// POST register user
+router.post("/register", async (req, res) => {
+  try {
+    const { firstName, lastName, email, username, password } = req.body;
+    if (!email || !username || !password) {
+      return res
+        .status(400)
+        .json({ message: "Email, username and password are required" });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    try {
+      const user = await User.create({
+        firstName,
+        lastName,
+        email,
+        username,
+        password: hashedPassword,
+      });
+      res.redirect("/admin");
+    } catch (err) {
+      if (err.code === 11000) {
+        return res
+          .status(400)
+          .json({ message: "Username already exists", user });
+      } else {
+        return res.status(500).json({ message: "Internal Server Error", err });
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+});
+
 // GET admin page
 router.get("/admin", async (req, res) => {
   try {
@@ -200,53 +249,5 @@ router.get("/logout", authMiddleware, async (req, res) => {
   }
 });
 
-// GET register page
-router.get("/register", async (req, res) => {
-  try {
-    const locals = {
-      title: "Register",
-      description: "Simple blog page with NodeJs and MongoDB.",
-    };
-    res.render("admin/register", { layout: layout, locals, showLogout: false });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Server Error");
-  }
-});
-
-// POST register user
-router.post("/register", async (req, res) => {
-  try {
-    const { firstName, lastName, email, username, password } = req.body;
-    if (!email || !username || !password) {
-      return res
-        .status(400)
-        .json({ message: "Email, username and password are required" });
-    }
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    try {
-      const user = await User.create({
-        firstName,
-        lastName,
-        email,
-        username,
-        password: hashedPassword,
-      });
-      res.redirect("/admin");
-    } catch (err) {
-      if (err.code === 11000) {
-        return res
-          .status(400)
-          .json({ message: "Username already exists", user });
-      } else {
-        return res.status(500).json({ message: "Internal Server Error", err });
-      }
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Server Error");
-  }
-});
 
 module.exports = router;
